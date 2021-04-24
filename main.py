@@ -13,8 +13,6 @@ pygame.mixer.music.set_volume(0.1)
 pygame.mixer.music.play(-1)
 mario = pygame.mixer.Sound('mario_sound_end.mp3')
 
-image = random.choices(['cthulhu.png', 'enemy.png'])
-
 pygame.display.Info()
 screen = pygame.display.set_mode((800, 600))
 pygame.display.set_caption("Alish VS Monsters")

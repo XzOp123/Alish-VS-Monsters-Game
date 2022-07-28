@@ -6,22 +6,19 @@ from pygame import mixer
 pygame.init()
 pygame.mixer.init()
 
-explosion = pygame.mixer.Sound('explosion.wav')
-laser = pygame.mixer.Sound('laser.wav')
-pygame.mixer.music.load('music.wav')
-pygame.mixer.music.set_volume(0.1)
-pygame.mixer.music.play(-1)
-mario = pygame.mixer.Sound('mario_sound_end.mp3')
+explosion = pygame.mixer.Sound('assets/sounds/explosion.wav')
+laser = pygame.mixer.Sound('assets/sounds/laser.wav')
 
-image = random.choices(['cthulhu.png', 'enemy.png'])
+
 
 pygame.display.Info()
 screen = pygame.display.set_mode((800, 600))
 pygame.display.set_caption("Alish VS Monsters")
-icon = pygame.image.load(r'3d-movie.png')
+icon = pygame.image.load('assets/images/3d-movie.png')
 pygame.display.set_icon(icon)
 
-background1 = pygame.image.load('background_1.png')
+image_back = random.choice(['assets/images/background_2.png', 'assets/images/background_1.png'])
+background1 = pygame.image.load(image_back)
 
 beta_font = pygame.font.Font('freesansbold.ttf', 15)
 arrow_font = pygame.font.Font('freesansbold.ttf', 35)
@@ -32,14 +29,6 @@ def beta_func():
     screen.blit(beta_set, (5, 5))
 
 
-def arrow_right():
-    right_set = arrow_font.render(f'<--------', True, (0, 0, 0))
-    screen.blit(right_set, (540, 355))
-
-
-def arrow_left():
-    left_set = arrow_font.render(f'-------->', True, (0, 0, 0))
-    screen.blit(left_set, (150, 355))
 
 
 EnemyIMG = []
@@ -49,19 +38,19 @@ enemyX_change = []
 enemyY_change = []
 num_of_enemies = 9
 for i in range(num_of_enemies):
-    EnemyIMG.append(pygame.image.load('cthulhu.png'))
+    EnemyIMG.append(pygame.image.load('assets/images/cthulhu.png'))
     EnemyX.append(random.randint(0, 736))
     EnemyY.append(random.randint(50, 150))
     enemyX_change.append(4)
     enemyY_change.append(40)
 
-PlayerIMG = pygame.image.load(r'176458889_208370900743684_7423843189261827827_n.png')
+PlayerIMG = pygame.image.load('assets/images/alish.png')
 PlayerIMG = pygame.transform.smoothscale(PlayerIMG, (64, 64))
 PlayerX = 370
 PlayerY = 480
 playerX_change = 0
 
-BulletIMG = pygame.image.load('bullet.png')
+BulletIMG = pygame.image.load('assets/images/bullet.png')
 BulletX = 0
 BulletY = 480
 bulletX_change = 0
@@ -70,7 +59,7 @@ bullet_state = "ready"
 
 # score
 score_value = 0
-font = pygame.font.Font('balloons.ttf', 32)
+font = pygame.font.Font('assets/fonts/balloons.ttf', 32)
 TestX = 330
 TestY = 10
 
@@ -85,19 +74,9 @@ def show_score(x, y):
     screen.blit(score, (x, y))
 
 
-over_font = pygame.font.Font('monster shadow.ttf', 75)
+over_font = pygame.font.Font('assets/fonts/monster shadow.ttf', 75)
 
 
-def smili_right():
-    right = pygame.image.load('right.png')
-    right = pygame.transform.smoothscale(right, (128, 128))
-    screen.blit(right, (650, 150))
-
-
-def smili_left():
-    left = pygame.image.load('left.png')
-    left = pygame.transform.smoothscale(left, (128, 128))
-    screen.blit(left, (50, 150))
 
 
 def player(x, y):
@@ -186,10 +165,6 @@ def game_over_text():
     screen.fill((128, 255, 0))
     over_text = over_font.render(f'Game Over!', True, (255, 255, 255))
     screen.blit(over_text, (190, 110))
-    smili_left()
-    smili_right()
-    arrow_left()
-    arrow_right()
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
     if 300 + 210 > mouse[0] > 300 and 300 + 125 > mouse[1] > 300:
@@ -256,9 +231,6 @@ while action:
         if EnemyY[i] > 440:
             for j in range(num_of_enemies):
                 EnemyY[j] = 20000
-                mario.set_volume(0.05)
-                pygame.mixer.music.stop()
-                mario.play(0)
             game_over_text()
             break
 
